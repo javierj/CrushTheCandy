@@ -21,9 +21,11 @@ public class CandyEnemiesFactory {
 	}
 
 	private void createCandies(CandyEnemies ce) {
+		//EnemyColumn ec;
+		CandyColumn ec;
 		for (int column = 0; column < this.columns; column++) {
-			EnemyColumn ec = ce.columns().get(column);
-			ec.setPosition(calculateX(column), Constants.HEIGHT);
+			ec = ce.columns().get(column);
+			ec.setPosition(calculateX(column), /*Constants.HEIGHT*/0f);
 			//Candy c;
 			//*/
 		}

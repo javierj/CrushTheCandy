@@ -44,7 +44,7 @@ public class Room implements AddRowEvent {
 	public void setCandyEnemies(CandyEnemies candyEnemies2) {
 		this.candyEnemies = candyEnemies2;
 		
-		for (EnemyColumn ec: this.candyEnemies.columns()) {
+		for (/*EnemyColumn*/CandyColumn ec: this.candyEnemies.columns()) {
 			/*for (Candy c: ec.getCandies())
 				this.stage.addActor(c);*/
 			this.stage.addActor(ec);

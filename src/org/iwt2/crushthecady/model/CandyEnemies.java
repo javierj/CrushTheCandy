@@ -11,18 +11,19 @@ import unit.factory.Candies;
 public class CandyEnemies {
 
 	private int numOfColumns;
-	private ArrayList<EnemyColumn> columns;
+	//private ArrayList<EnemyColumn> columns;
+	ArrayList<CandyColumn> columns;
 	protected CandyFactory factory;
 
 	public CandyEnemies(int numOfColumns) {
 		this.numOfColumns = numOfColumns;
-		this.columns = new ArrayList<EnemyColumn>();
+		this.columns = new ArrayList<CandyColumn>();
 		for (int i = 0; i < numOfColumns; i++) {
-			columns.add( new EnemyColumn() );
+			columns.add( new CandyColumn() );
 		}
 	}
 
-	public List<EnemyColumn> columns() {
+	public List<CandyColumn> columns() {
 		return this.columns;
 	}
 
@@ -31,6 +32,9 @@ public class CandyEnemies {
 		
 	}
 
+	/**
+	 * Testing only.
+	 */
 	public int candies(int i) {
 		return this.columns.get(i).candies();
 	}
@@ -41,14 +45,15 @@ public class CandyEnemies {
 	 * @param factory
 	 */
 	public void addOneRow(/*CandyFactory factory*/) {
+		CandyColumn ec;
 		for (int column = 0; column < this.columns.size(); column++) {
-			EnemyColumn ec = this.columns.get(column);
-			ec.allCandiesDown();
+			ec = this.columns.get(column);
+			//ec.allCandiesDown();
 			//ec.setPosition(calculateX(column), 0f);
 			Candy c = this.factory.createwithRandomColorId();
 			//Candy c = Candies.red();
-				c.setY(/*calculateY(ec.candies())*/450);
-				c.setX(calculateX(column));
+				//c.setY(/*calculateY(ec.candies())*/500);
+				//c.setX(calculateX(column));
 				
 				ec.addCandy(c);
 			
@@ -64,9 +69,7 @@ public class CandyEnemies {
 		return Constants.STARTENEMIESX + (Constants.CANDYWIDHT * i) ;
 	}
 
-	private float calculateY(int i) {
-		return Constants.HEIGHT - (Constants.CANDYHEIDHT * (i+1) );
-	}
+
 
 
 }

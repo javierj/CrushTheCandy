@@ -25,7 +25,8 @@ public class CrushTheCandy implements ApplicationListener {
 	private AddRowTimeEvent timeEvent;
 	
 	public CrushTheCandy() {
-
+		this.startGameDirector = new StartGameDirector();
+		this.room = new Room();
 	}
 
 	/**
@@ -38,8 +39,7 @@ public class CrushTheCandy implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		this.startGameDirector = new StartGameDirector();
-		this.room = new Room();
+	
 		this.startGameDirector.create(this.room);
 		this.timeEvent = new AddRowTimeEvent(Constants.NEWROWTIME);
 		this.timeEvent.setTimeEventCaller(this.room);

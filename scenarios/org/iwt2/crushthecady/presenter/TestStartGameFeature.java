@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 import org.iwt2.crushthecady.CrushTheCandy;
 import org.iwt2.crushthecady.model.CandyBullet;
+import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.CandyEnemies;
 import org.iwt2.crushthecady.model.EnemyColumn;
 import org.iwt2.crushthecady.model.Room;
@@ -89,7 +90,7 @@ public class TestStartGameFeature {
 		
 		
 		CandyEnemies candyEnemies = room.getCandyEnemies();
-		for(EnemyColumn ec: candyEnemies.columns()) {
+		for(CandyColumn ec: candyEnemies.columns()) {
 			assertThat(ec.candies(), is(3) );
 		}
 	}

@@ -15,6 +15,7 @@ public class TestEnemyColumn {
 	public void setUp() throws Exception {
 	}
 
+	
 	@Test
 	public void testAllCandiesDown() {
 		EnemyColumn ec = new EnemyColumn();
