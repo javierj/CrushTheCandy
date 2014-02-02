@@ -36,6 +36,7 @@ public class TestRoom {
 		
 	}
 
+	
 	@Test
 	public void whenAddingACadyEnemies_ItIsAddedIntoStage() {
 		Room room = RoomFactory.createRoom();

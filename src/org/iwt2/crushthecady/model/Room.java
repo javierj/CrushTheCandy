@@ -1,8 +1,10 @@
 package org.iwt2.crushthecady.model;
 
+import org.iwt2.crushthecandy.model.events.AddRowEvent;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class Room {
+public class Room implements AddRowEvent {
 
 	private CandyBullet candyBullet;
 	Stage stage;
@@ -41,11 +43,18 @@ public class Room {
 
 	public void setCandyEnemies(CandyEnemies candyEnemies2) {
 		this.candyEnemies = candyEnemies2;
+		
 		for (EnemyColumn ec: this.candyEnemies.columns()) {
-			for (Candy c: ec.getCandies())
-			this.stage.addActor(c);
+			/*for (Candy c: ec.getCandies())
+				this.stage.addActor(c);*/
+			this.stage.addActor(ec);
 		}
 		
+	}
+
+	@Override
+	public void timeExpires() {
+		this.candyEnemies.addOneRow();
 	}
 
 }

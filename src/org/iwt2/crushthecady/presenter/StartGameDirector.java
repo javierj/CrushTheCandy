@@ -21,10 +21,7 @@ public class StartGameDirector {
 	
 	private void createCandyEnemies(Room room) {
 		CandyEnemiesFactory cef = new CandyEnemiesFactory(this.cf);
-		
-			
 		int columns = (Constants.WIDTH - Constants.STARTENEMIESX) / Constants.CANDYWIDHT;
-		
 		room.setCandyEnemies(cef.create(columns));
 		
 	}

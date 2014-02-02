@@ -41,8 +41,8 @@ public class TestCandyEnemiesFactory {
 	public void test_CandiesAreInTheTopOfTheColumn() {
 		EnemyColumn ec = ce.columns().get(0);
 		
-		assertThat(ec.getCandies().get(2).getY(), is((float)(Constants.HEIGHT - Constants.CANDYHEIDHT )));	
-		assertThat(ec.getCandies().get(1).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT * 2) )));	
+		assertThat(ec.getChildren().get(2).getY(), is((float)(Constants.HEIGHT - Constants.CANDYHEIDHT )));	
+		assertThat(ec.getChildren().get(1).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT * 2) )));	
 		
 	}
 
@@ -52,12 +52,12 @@ public class TestCandyEnemiesFactory {
 		EnemyColumn ec1 = ce.columns().get(0);
 		EnemyColumn ec2 = ce.columns().get(1);
 		
-		assertThat(ec1.getCandies().get(0).getX(), is((float)(Constants.STARTENEMIESX)));	
-		assertThat(ec2.getCandies().get(0).getX(), is((float)(Constants.STARTENEMIESX + Constants.CANDYWIDHT )));	
+		assertThat(ec1.getChildren().get(0).getX(), is((float)(Constants.STARTENEMIESX)));	
+		assertThat(ec2.getChildren().get(0).getX(), is((float)(Constants.STARTENEMIESX + Constants.CANDYWIDHT )));	
 		
 	}
 
-	/*@Test
+	@Test
 	public void test_EnemyColumnsXandY() {
 		EnemyColumn ec1 = ce.columns().get(0);
 		EnemyColumn ec2 = ce.columns().get(1);
@@ -67,6 +67,7 @@ public class TestCandyEnemiesFactory {
 		assertThat(ec1.getY(), is(0f));	
 		assertThat(ec2.getY(), is(0f));	
 
-	}*/
+	}
 
+	
 }

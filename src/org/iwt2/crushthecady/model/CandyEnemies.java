@@ -12,7 +12,7 @@ public class CandyEnemies {
 
 	private int numOfColumns;
 	private ArrayList<EnemyColumn> columns;
-	private CandyFactory factory;
+	protected CandyFactory factory;
 
 	public CandyEnemies(int numOfColumns) {
 		this.numOfColumns = numOfColumns;

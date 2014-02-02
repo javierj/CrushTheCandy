@@ -21,11 +21,12 @@ public class CandyEnemiesFactory {
 	}
 
 	private void createCandies(CandyEnemies ce) {
-		//for (int column = 0; column < this.columns; column++) {
-			/*EnemyColumn ec = ce.columns().get(column);
-			//ec.setPosition(calculateX(column), 0f);
-			Candy c;
-			*/
+		for (int column = 0; column < this.columns; column++) {
+			EnemyColumn ec = ce.columns().get(column);
+			ec.setPosition(calculateX(column), Constants.HEIGHT);
+			//Candy c;
+			//*/
+		}
 			for (int i = 0; i < Constants.INITIALCANDIES; i++) {
 				/*c = this.factory.createwithRandomColorId();
 				c.setY(calculateY(i));

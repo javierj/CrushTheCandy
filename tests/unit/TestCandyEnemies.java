@@ -55,8 +55,8 @@ public class TestCandyEnemies {
 		}
 		
 		EnemyColumn ce = this.ce.columns().get(0);
-		assertThat(ce.getCandies().get(0).getY(), is(400f));
-		assertThat(ce.getCandies().get(1).getY(), is(450f));
+		assertThat(ce.getChildren().get(0).getY(), is(400f));
+		assertThat(ce.getChildren().get(1).getY(), is(450f));
 	}
 
 }
