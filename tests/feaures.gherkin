@@ -1,0 +1,74 @@
+feature Game Start
+	As a player
+	I want to start a game
+	to have fun
+
+	scenario new game
+		given A new game of 750, 500
+		when starting a game
+		then I have three rows of random candies from  125, 500 to 675, 350
+		 and each row has 9 candies 
+		 and I have a column with 10 random candies from 0, 0 to 75, 500
+		
+	scenario new player
+		give a new game of 750 x 500
+		when starting a game
+		then player is at (350, 0)
+		 and player has a random candy
+		
+		
+feature Game Play
+	As I player
+	I want to play a game
+	to have fun
+	
+	scenario time pass and candies moves down
+		given a game of 750 x 500
+		when 3 seconds passed
+		then a new row of random candies are generated 
+		and all previous candies goes one row down (50 pixeles)
+	
+	scenario end of game (you lose)
+		given a game of 750 x 500
+		when a column os candies takes the last space before the florr (Y = 50)
+		then game over 
+		and you lose
+
+		
+feature Candy shoot
+	As player
+	I want to shoot candies
+	to win the game
+	
+	scenario shoot candy to a row starting wirh the same candy
+		given a red candy to shot and a column that ends in 3 red candies
+		when I shoot the candy
+		then The candy goes up until it collides wirh the red candies
+		and The four red candies disapear
+		
+	scenario shoot candy to row starting with different candy
+		given a red candy to shot and a column that ends with a yellow candy
+		when I shoot the candy
+		then the candy goes up until it collides with the yellow candy
+		and the candy is stuccked with the yellow candy
+		
+	scenario refill the candy column
+		# El de abajo va al jgador y arriba s egenera uno nuevo
+		given a game
+		when I shoot the candy
+		the  a new candy is added to the candy bullets
+		and its color is a color that existist in the candies enemies.
+
+		
+feature Player moves
+	As player
+	I want to move myself
+	to shoot candies to the right column
+		
+	scenario move one column left
+		given a player at 350, 0
+		when player press left key
+		then player is at 275, 0
+	
+	# Indicar cuando no se puede mover y repetir para el otro lado.
+		
