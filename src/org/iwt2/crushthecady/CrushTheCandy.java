@@ -1,7 +1,9 @@
 package org.iwt2.crushthecady;
 
 import org.iwt2.crushthecady.model.Room;
+import org.iwt2.crushthecady.model.logic.ShootCandy;
 import org.iwt2.crushthecady.presenter.AddRowTimeEvent;
+import org.iwt2.crushthecady.presenter.PlayerMovement;
 import org.iwt2.crushthecady.presenter.StartGameDirector;
 import org.iwt2.crushthecady.view.Constants;
 import org.iwt2.crushthecady.view.Screen;
@@ -25,8 +27,7 @@ public class CrushTheCandy implements ApplicationListener {
 	private AddRowTimeEvent timeEvent;
 	
 	public CrushTheCandy() {
-		this.startGameDirector = new StartGameDirector();
-		this.room = new Room();
+		
 	}
 
 	/**
@@ -39,10 +40,16 @@ public class CrushTheCandy implements ApplicationListener {
 	
 	@Override
 	public void create() {
-	
+		this.startGameDirector = new StartGameDirector();
+		this.room = new Room();
+		
 		this.startGameDirector.create(this.room);
 		this.timeEvent = new AddRowTimeEvent(Constants.NEWROWTIME);
 		this.timeEvent.setTimeEventCaller(this.room);
+		
+		PlayerMovement movement = new PlayerMovement(this.room);
+		Gdx.input.setInputProcessor(movement);
+		movement.setShootCandy(new ShootCandy(this.room));
 	}
 
 	@Override
@@ -66,6 +73,7 @@ public class CrushTheCandy implements ApplicationListener {
 
 	private void update(float deltaTime) {
 		this.timeEvent.update(deltaTime);
+		this.room.act(deltaTime);
 		
 	}
 

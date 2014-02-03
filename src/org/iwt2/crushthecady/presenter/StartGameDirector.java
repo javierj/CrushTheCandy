@@ -3,6 +3,7 @@ package org.iwt2.crushthecady.presenter;
 import org.iwt2.crushthecady.model.CandyBullet;
 import org.iwt2.crushthecady.model.CandyBulletFactory;
 import org.iwt2.crushthecady.model.CandyEnemiesFactory;
+import org.iwt2.crushthecady.model.Player;
 import org.iwt2.crushthecady.model.Room;
 import org.iwt2.crushthecady.view.Constants;
 import org.iwt2.crushthecady.view.TextureDict;
@@ -17,8 +18,19 @@ public class StartGameDirector {
 		this.loadTextures();
 		this.createCandyBullet(room);
 		this.createCandyEnemies(room);
+		this.createPlayer(room);
 	}
 	
+	private void createPlayer(Room room) {
+		Player player = new Player();
+		int squares = (Constants.WIDTH - Constants.STARTENEMIESX) / Constants.CANDYWIDHT;
+		player.setPosition( (squares / 2) *  Constants.CANDYWIDHT + Constants.STARTENEMIESX , Constants.GAMESCREEN_YORIGIN);
+		player.setCandy(this.cf.createwithRandomColorId());
+		
+		room.setPlayer(player);
+		
+	}
+
 	private void createCandyEnemies(Room room) {
 		CandyEnemiesFactory cef = new CandyEnemiesFactory(this.cf);
 		int columns = (Constants.WIDTH - Constants.STARTENEMIESX) / Constants.CANDYWIDHT;

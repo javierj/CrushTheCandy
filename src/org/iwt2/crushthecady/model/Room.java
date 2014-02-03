@@ -9,6 +9,7 @@ public class Room implements AddRowEvent {
 	private CandyBullet candyBullet;
 	Stage stage;
 	private CandyEnemies candyEnemies;
+	private Player player;
 	
 	public Room() {
 		this.stage = new Stage();
@@ -55,6 +56,20 @@ public class Room implements AddRowEvent {
 	@Override
 	public void timeExpires() {
 		this.candyEnemies.addOneRow();
+	}
+
+	public void act(float deltaTime) {
+		this.stage.act(deltaTime);
+		
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+		this.stage.addActor(player);
+	}
+
+	public Player getPlayer() {
+		return this.player;
 	}
 
 }

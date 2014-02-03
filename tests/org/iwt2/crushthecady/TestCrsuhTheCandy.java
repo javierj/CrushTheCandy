@@ -5,9 +5,12 @@ import static org.mockito.Mockito.*;
 
 import static org.hamcrest.CoreMatchers.*;
 
+import org.iwt2.crushthecady.model.Room;
 import org.iwt2.crushthecady.presenter.AddRowTimeEvent;
 import org.junit.Before;
 import org.junit.Test;
+
+import unit.factory.RoomFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
@@ -26,6 +29,8 @@ public class TestCrsuhTheCandy {
 		crush.setTimeEvent(event);
 		Gdx.graphics = mock(Graphics.class);
 		Gdx.gl = mock(GLCommon.class);
+		Room mockRoom = RoomFactory.createRoom();
+		crush.setRoom(mockRoom);
 		
 		when(Gdx.graphics.getDeltaTime()).thenReturn(0.1f);
 		crush.render();

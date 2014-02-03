@@ -1,14 +1,16 @@
 package org.iwt2.crushthecady.presenter;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import org.iwt2.crushthecady.CrushTheCandy;
+import org.iwt2.crushthecady.model.Candy;
 import org.iwt2.crushthecady.model.CandyBullet;
 import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.CandyEnemies;
 import org.iwt2.crushthecady.model.EnemyColumn;
+import org.iwt2.crushthecady.model.Player;
 import org.iwt2.crushthecady.model.Room;
 import org.iwt2.crushthecady.presenter.StartGameDirector;
 import org.iwt2.crushthecady.view.Constants;
@@ -20,6 +22,7 @@ import unit.factory.RoomFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -45,6 +48,7 @@ public class TestStartGameFeature {
 		this.room = RoomFactory.createRoom();
 		game.setStartDageDirector(startGame);
 		game.setRoom(room);
+		Gdx.input = mock(Input.class);
 	}
 
 	
@@ -93,6 +97,28 @@ public class TestStartGameFeature {
 		for(CandyColumn ec: candyEnemies.columns()) {
 			assertThat(ec.candies(), is(3) );
 		}
+	}
+	
+	
+	
+	/**
+	 * 	scenario new player
+		give a new game of 750 x 500
+		when starting a game
+		then player is at (350, 0)
+		 and player has a random candy
+	 * @author Javier
+	 *
+	 */
+	@Test
+	public void testCreatePlayer() {
+		game.create();
+		
+		Player p = this.room.getPlayer();
+		
+		assertThat(p.getX(), is((float)75 + 50 + (75*4)));
+		assertThat(p.getY(), is(0f));
+		assertTrue(p.getCandy() instanceof Candy);
 	}
 	
 	//-----------------------------------------------------------

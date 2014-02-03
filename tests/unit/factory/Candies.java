@@ -6,4 +6,8 @@ public class Candies {
 	public static Candy red() {
 		return new Candy("Red");
 	}
+
+	public static Candy yellow() {
+		return new Candy("Yellow");
+	}
 }

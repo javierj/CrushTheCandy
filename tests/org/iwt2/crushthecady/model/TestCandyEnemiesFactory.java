@@ -42,8 +42,8 @@ public class TestCandyEnemiesFactory {
 	@Test
 	public void test_CandiesAreInTheTopOfTheColumn() {
 		CandyColumn ec = ce.columns().get(0);
-		
-		assertThat(ec.candies.get(2).getY(), is((float)(Constants.HEIGHT - Constants.CANDYHEIDHT )));	
+		ec.act(10f);
+		assertThat(ec.candies.get(2).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT ) )));	
 		assertThat(ec.candies.get(1).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT * 2) )));	
 		
 	}

@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.iwt2.crushthecady.model.Candy;
 import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.CandyEnemies;
+import org.iwt2.crushthecady.view.Constants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,8 +59,28 @@ public class TestCandyEnemies {
 		}
 		
 		CandyColumn ce = this.ce.columns().get(0);
+		ce.act(10f);
 		assertThat(ce.candies.get(0).getY(), is(400f));
 		assertThat(ce.candies.get(1).getY(), is(450f));
+	}
+	
+	@Test
+	public void testFirstCandyInColumn() {
+		this.ce.addCandy(0, Candies.red());
+		
+		Candy top = ce.firstCandyInColumn(0);
+		assertThat(top.getY(), is((float) Constants.HEIGHT - Constants.CANDYHEIDHT) );
+	}
+	
+	@Test
+	public void whenAddingAShooteCandy_DontChateItsPosition() {
+		Candy shooted = Candies.red();
+		shooted.setPosition(32f, 42f);
+		
+		this.ce.addShootedCandy(0, shooted);
+		
+		assertThat(shooted.getX(), is(32f));
+		assertThat(shooted.getY(), is(42f));
 	}
 
 }

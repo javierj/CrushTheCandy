@@ -46,7 +46,7 @@ public class CandyEnemies {
 	 */
 	public void addOneRow(/*CandyFactory factory*/) {
 		CandyColumn ec;
-		for (int column = 0; column < this.columns.size(); column++) {
+		for (int column = 0; column < this.numOfColumns; column++) {
 			ec = this.columns.get(column);
 			//ec.allCandiesDown();
 			//ec.setPosition(calculateX(column), 0f);
@@ -64,9 +64,18 @@ public class CandyEnemies {
 	public void setCandyFactory(CandyFactory factory) {
 		this.factory = factory;
 	}
-
+/*
 	private float calculateX(int i) {
 		return Constants.STARTENEMIESX + (Constants.CANDYWIDHT * i) ;
+	}
+*/
+	public Candy firstCandyInColumn(int i) {
+		return this.columns.get(i).getCandy(0);
+	}
+
+	public void addShootedCandy(int i, Candy shooted) {
+		this.columns.get(i).addShootedCandy(shooted);
+		
 	}
 
 

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.hamcrest.CoreMatchers.*;
 import org.iwt2.crushthecady.model.CandyBullet;
 import org.iwt2.crushthecady.model.CandyEnemies;
+import org.iwt2.crushthecady.model.Player;
 import org.iwt2.crushthecady.model.Room;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,14 +21,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class TestRoom {
 
+	private Room room;
+	private Stage mockStage;
+
+
 	@Before
 	public void setUp() throws Exception {
+		this.room = RoomFactory.createRoom();
+		this.mockStage = room.getStage();
 	}
 
 	@Test
 	public void whenAddingACadyBullet_ItIsAddedIntoStage() {
-		Room room = RoomFactory.createRoom();
-		Stage mockStage = room.getStage();
+
 		
 		assertThat(mockStage.getActors().size, is(0));
 		
@@ -39,15 +45,24 @@ public class TestRoom {
 	
 	@Test
 	public void whenAddingACadyEnemies_ItIsAddedIntoStage() {
-		Room room = RoomFactory.createRoom();
-		Stage mockStage = room.getStage();
-		
+	
 		assertThat(mockStage.getActors().size, is(0));
 		
 		CandyEnemies ce = new CandyEnemies(1);
 		ce.addCandy(0, Candies.red());
 		
 		room.setCandyEnemies(ce);
+		assertThat(mockStage.getActors().size, is(1));
+		
+	}
+
+	
+	@Test
+	public void whenAddingAPlayer_ItIsAddedIntoStage() {
+		
+		Player p = new Player();
+		room.setPlayer(p);
+		
 		assertThat(mockStage.getActors().size, is(1));
 		
 	}

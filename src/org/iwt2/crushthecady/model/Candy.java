@@ -12,7 +12,7 @@ public class Candy extends Image {
 		this.colorId = colorId;
 	}
 
-	public Candy(String colorId2, Texture texture) {
+	public Candy(String colorId, Texture texture) {
 		super(texture);
 		this.colorId = colorId;
 	}

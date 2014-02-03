@@ -42,6 +42,8 @@ public class TestCandyColumn {
 		
 		cc.addCandy(c02);
 		
+		this.cc.act(10f);
+		
 		assertThat(c01.getY(), is((float)( Constants.HEIGHT - (2 * Constants.CANDYHEIDHT) ) ) );
 		assertThat(c02.getY(), is((float)( Constants.HEIGHT - Constants.CANDYHEIDHT)) );
 	}
