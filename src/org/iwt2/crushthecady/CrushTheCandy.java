@@ -40,16 +40,19 @@ public class CrushTheCandy implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		
 		this.startGameDirector = new StartGameDirector();
 		this.room = new Room();
 		
+		
 		this.startGameDirector.create(this.room);
-		this.timeEvent = new AddRowTimeEvent(Constants.NEWROWTIME);
-		this.timeEvent.setTimeEventCaller(this.room);
+
 		
 		PlayerMovement movement = new PlayerMovement(this.room);
 		Gdx.input.setInputProcessor(movement);
 		movement.setShootCandy(new ShootCandy(this.room));
+		this.timeEvent = new AddRowTimeEvent(Constants.NEWROWTIME);
+		this.timeEvent.setTimeEventCaller(this.room);
 	}
 
 	@Override

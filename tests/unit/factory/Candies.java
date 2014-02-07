@@ -8,6 +8,13 @@ public class Candies {
 	}
 
 	public static Candy yellow() {
-		return new Candy("Yellow");
+		return yellow(0f, 0f);
 	}
+
+	public static Candy yellow(float f, float g) {
+		Candy c = new Candy("Yellow");
+		c.setPosition(f, g);
+		return c;
+	}
+
 }

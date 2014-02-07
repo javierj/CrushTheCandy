@@ -1,5 +1,6 @@
 package org.iwt2.crushthecady.model;
 
+import org.iwt2.crushthecady.model.logic.CandyListener;
 import org.iwt2.crushthecady.view.Constants;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 
-public class CandyColumn extends Actor {
+public class CandyColumn extends Actor implements CandyListener {
 
 	Array<Candy> candies;
 
@@ -35,9 +36,10 @@ public class CandyColumn extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		//for (Candy c: this.candies) {
 		Candy c;
-		for (int i= this.candies.size-1; i >= 0; i-- ) {
+		//for (int i= this.candies.size-1; i >= 0; i-- ) {
+		for (int i= 0; i < this.candies.size; i++ ) {
 			c = this.candies.get(i);
-			c.draw(batch, parentAlpha);
+			c.draw(batch, this.getColor().a);
 		}
 	}
 	
@@ -54,19 +56,11 @@ public class CandyColumn extends Actor {
 	 */
 	private void moveDownCandies() {
 		for (Candy c: this.candies) {
-			MoveToAction move = new MoveToAction();
-			move.setDuration(1f);
-			move.setPosition(c.getX(), c.getY() - Constants.CANDYHEIDHT);
-			//c.setY(c.getY() - Constants.CANDYHEIDHT);
-			c.addAction(move);
+			c.moveTo(c.getX(), c.getY() - Constants.CANDYHEIDHT);
 		}
 		
 	}
 
-	/*
-	private float calculateY(int i) {
-		return Constants.HEIGHT - (Constants.CANDYHEIDHT * (i+1) );
-	}*/
 
 	public int candies() {
 		return this.candies.size;
@@ -77,5 +71,17 @@ public class CandyColumn extends Actor {
 	 */
 	public Candy getCandy(int index) {
 		return this.candies.get(index);
+	}
+
+	/**
+	 * Called when a candy must be deleted
+	 */
+	@Override
+	public void candyEvent(Candy c) {
+		boolean b = this.candies.removeValue(c, true);
+		if (!b){
+			System.err.println("CandyColumn - No Candy to delete.");
+		}
+ 		
 	}
 }
