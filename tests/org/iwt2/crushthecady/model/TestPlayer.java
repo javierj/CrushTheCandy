@@ -18,6 +18,7 @@ public class TestPlayer {
 	public void setUp() throws Exception {
 		this.player = PlayerFactory.create();
 		this.player.setPosition(300f, 0f);
+		this.player.setCandy(Candies.red());
 	}
 
 	@Test
@@ -56,6 +57,7 @@ public class TestPlayer {
 	
 	@Test
 	public void whenAddingACandy_IsAddedIntoChildrens() {
+		this.player = PlayerFactory.create();
 		this.player.setCandy(Candies.red());
 		
 		assertThat(this.player.getChildren().size, is(1));
@@ -67,6 +69,28 @@ public class TestPlayer {
 		assertThat(player.columnIndex(), is (0));
 		this.player.setPosition(Constants.STARTENEMIESX + Constants.CANDYWIDHT, 0);
 		assertThat(player.columnIndex(), is (1));
+	}
+	
+	@Test
+	public void whenDeleteCandy_candyIsNull() {
+		this.player.deleteCandy();
+		assertNull(this.player.getCandy());
+	}
+	
+	@Test
+	public void whenPlayerHasNoCandy_thenDoesNotMove() {
+		float x = this.player.getX();
+		this.player.candy = null;
+		
+		this.player.moveLeft();
+		this.player.act(10f);
+		
+		assertThat(this.player.getX(), is(x));
+	
+		this.player.moveRight();
+		this.player.act(10f);
+		
+		assertThat(this.player.getX(), is(x));
 	}
 
 }

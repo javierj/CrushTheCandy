@@ -95,7 +95,7 @@ public class TestStartGameFeature {
 		
 		CandyEnemies candyEnemies = room.getCandyEnemies();
 		for(CandyColumn ec: candyEnemies.columns()) {
-			assertThat(ec.candies(), is(3) );
+			assertThat(ec.candies(), is(Constants.INITIALCANDIES) );
 		}
 	}
 	

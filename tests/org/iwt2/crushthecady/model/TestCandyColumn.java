@@ -8,8 +8,10 @@ import org.iwt2.crushthecady.view.Constants;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import unit.factory.Batchs;
 import unit.factory.Candies;
 
 public class TestCandyColumn {
@@ -28,7 +30,7 @@ public class TestCandyColumn {
 	@Test
 	public void testAddOneCandy() {
 		assertThat(c01.getX(), is(100f));
-		assertThat(c01.getY(), is((float)( Constants.HEIGHT - Constants.CANDYHEIDHT)) );
+		assertThat(c01.getY(), is((float)( Constants.HEIGHT /*- Constants.CANDYHEIDHT*/)) );
 		assertThat(cc.candies(), is(1));
 		
 	}
@@ -66,9 +68,10 @@ public class TestCandyColumn {
 		this.cc.candyEvent(delete);
 		
 		assertThat(this.cc.candies(), is(1));
-		assertFalse(this.cc.candies.contains(delete, true));
+		assertFalse(this.cc.candies.contains(delete));
 	}
-	
+
+/*
 	@Test
 	public void whenReceivesACandyevent_thenDeletesTheCandyFromColumn_2() {
 		
@@ -76,7 +79,19 @@ public class TestCandyColumn {
 		
 		assertThat(this.cc.candies(), is(0));
 	}
+*/
 	
+	@Test
+	public void givemCandyWithAlpha_0_whenDrawing_thaCandyIsErase() {
+		Color c = this.c01.getColor();
+		c.a = 0f;
+		this.c01.setColor(c);
+		
+		this.cc.draw(Batchs.dummy(), 0f);
+		
+		assertThat(this.cc.candies(), is(0));
+		
+	}
 	
 	//-------------------------------------------
 	

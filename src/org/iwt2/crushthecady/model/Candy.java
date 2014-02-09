@@ -53,27 +53,21 @@ public class Candy extends Image {
 		return notifyAction;
 	}
 
-
-
-
-
-
-	public boolean deleted = false;
-	
-	public void delete(CandyListener listener) {
-		deleted = true;
+	/**
+	 * Adds an alpha action to decrease the alphA to cero
+	 * @param listener
+	 */
+	public void delete(CandyListener listener) {		
 		AlphaAction aa = new AlphaAction();
 		aa.setAlpha(0f);
 		aa.setDuration(0.5f);
 		
 		this.addAction(aa);
 		
-		this.addAction(createNotifyAction(listener));
-
-	}
-
-	public boolean deleted() {
-		return deleted;
+		//this.addAction(createNotifyAction(listener));
+		//listener.candyEvent(this);
+		//this.setColor(getColor().r, getColor().g, getColor().b, 0f);
+		//System.out.println("Delete");
 	}
 
 	public boolean sameColor(Candy candyFromPlayer) {

@@ -27,6 +27,7 @@ public class CrushTheCandy implements ApplicationListener {
 	private AddRowTimeEvent timeEvent;
 	
 	public CrushTheCandy() {
+	
 		
 	}
 
@@ -40,10 +41,9 @@ public class CrushTheCandy implements ApplicationListener {
 	
 	@Override
 	public void create() {
-		
 		this.startGameDirector = new StartGameDirector();
 		this.room = new Room();
-		
+
 		
 		this.startGameDirector.create(this.room);
 
@@ -71,7 +71,7 @@ public class CrushTheCandy implements ApplicationListener {
 
 	void draw() {
 		Screen.Clear();
-		this.room.getStage().draw();
+		this.room.draw();
 	}
 
 	private void update(float deltaTime) {

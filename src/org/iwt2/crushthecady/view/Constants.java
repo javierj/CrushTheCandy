@@ -8,7 +8,7 @@ public class Constants {
 	public static  String[] COLORS = { "Red", "Orange", "Yellow" };
 	public static final int STARTENEMIESX = 125;
 	public static final float NEWROWTIME = 5f;
-	public static int INITIALCANDIES = 3;
+	public static int INITIALCANDIES = 1;
 	public static final int GAMESCREEN_YORIGIN = 0;
 
 }

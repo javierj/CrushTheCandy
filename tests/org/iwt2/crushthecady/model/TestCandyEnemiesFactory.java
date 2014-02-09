@@ -29,23 +29,18 @@ public class TestCandyEnemiesFactory {
 	}
 
 	@Test
-	public void test_3_candiesInEachColumns() {
+	public void test_whenGameStart_2_candiesInEachColumns() {
 		for (CandyColumn ec: ce.columns()) {
-			assertThat(ec.candies(), is(3));	
+			assertThat(ec.candies(), is(Constants.INITIALCANDIES));	
 		}
 	}
 
-	/**
-	 * The last candy in the list is the first i the column
-	 * Last cadie in the column is always 0
-	 */
 	@Test
 	public void test_CandiesAreInTheTopOfTheColumn() {
 		CandyColumn ec = ce.columns().get(0);
 		ec.act(10f);
-		assertThat(ec.candies.get(2).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT ) )));	
-		assertThat(ec.candies.get(1).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT * 2) )));	
-		
+		//assertThat(ec.candies.get(1).getY(), is((float)(Constants.HEIGHT - (Constants.CANDYHEIDHT ) )));	
+		assertThat(ec.candies.get(0).getY(), is((float)(Constants.HEIGHT /*- (Constants.CANDYHEIDHT * 2)*/ )));	
 	}
 
 	

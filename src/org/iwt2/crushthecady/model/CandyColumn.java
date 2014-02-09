@@ -1,5 +1,8 @@
 package org.iwt2.crushthecady.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.iwt2.crushthecady.model.logic.CandyListener;
 import org.iwt2.crushthecady.view.Constants;
 
@@ -10,10 +13,14 @@ import com.badlogic.gdx.utils.Array;
 
 public class CandyColumn extends Actor implements CandyListener {
 
-	Array<Candy> candies;
+	//Array<Candy> candies;
+	ArrayList<Candy> candies;
+	//private List<Candy> candyToDelete;
 
 	public CandyColumn() {
-		candies = new Array<Candy>();
+		//candies = new Array<Candy>();
+		candies = new ArrayList<Candy>();
+		//candyToDelete = new ArrayList<Candy>();
 	}
 	
 	/**
@@ -22,13 +29,14 @@ public class CandyColumn extends Actor implements CandyListener {
 	 */
 	public void addCandy(Candy c) {
 		moveDownCandies();
-		c.setPosition(this.getX(),  Constants.HEIGHT - Constants.CANDYHEIDHT);
+		c.setPosition(this.getX(),  Constants.HEIGHT /*- Constants.CANDYHEIDHT*/);
 		this.candies.add(c);
 		
 	}
 	
 	public void addShootedCandy(Candy c) {
-		this.candies.insert(0, c);
+		//this.candies.insert(0, c);
+		this.candies.add(0, c);
 		
 	}
 
@@ -36,34 +44,41 @@ public class CandyColumn extends Actor implements CandyListener {
 	public void draw(Batch batch, float parentAlpha) {
 		//for (Candy c: this.candies) {
 		Candy c;
+		float alpha;
 		//for (int i= this.candies.size-1; i >= 0; i-- ) {
-		for (int i= 0; i < this.candies.size; i++ ) {
+		for (int i= this.candies.size()-1; i >= 0; i-- ) {
+		//for (int i= 0; i < this.candies.size; i++ ) {
 			c = this.candies.get(i);
-			c.draw(batch, this.getColor().a);
+			alpha = c.getColor().a;
+			if (alpha == 0f) {
+				this.candies.remove(i);
+			} else {
+				c.draw(batch, alpha);
+			}
 		}
 	}
 	
 	@Override
 	public void act(float deltaTime) {
+
+		
 		for (Candy c: this.candies) {
 			c.act(deltaTime);
 		}
 		
 	}
 	
-	/**
-	 * ToDo: Refactoriza esto y mételo dentro de Candy.
-	 */
+
 	private void moveDownCandies() {
 		for (Candy c: this.candies) {
-			c.moveTo(c.getX(), c.getY() - Constants.CANDYHEIDHT);
+			c.moveTo(this.getX(), c.getY() - Constants.CANDYHEIDHT);
 		}
 		
 	}
 
 
 	public int candies() {
-		return this.candies.size;
+		return this.candies.size();
 	}
 	
 	/**
@@ -78,10 +93,17 @@ public class CandyColumn extends Actor implements CandyListener {
 	 */
 	@Override
 	public void candyEvent(Candy c) {
-		boolean b = this.candies.removeValue(c, true);
+		//boolean b = this.candies.removeValue(c, true);
+		boolean b = this.candies.remove(c);
 		if (!b){
 			System.err.println("CandyColumn - No Candy to delete.");
 		}
- 		
+		System.err.println("CandyColumn::candyEvent - Dont call this method.");
 	}
+
+	/* - Deprecated
+	public void setCandyToDelete(List<Candy> candyToDelete) {
+		this.candyToDelete = candyToDelete;
+		
+	}*/
 }

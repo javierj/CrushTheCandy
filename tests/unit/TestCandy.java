@@ -47,6 +47,7 @@ public class TestCandy {
 		assertTrue(c.getActions().get(0) instanceof AlphaAction);
 	}
 
+/* - No callsbacks	
 	@Test
 	public void whenErasingACandy_ACallBackIsAlsoAdded() {
 		
@@ -54,5 +55,5 @@ public class TestCandy {
 
 		assertTrue(c.getActions().get(1) instanceof AfterAction);
 	}
-
+*/
 }

@@ -72,4 +72,7 @@ public class Room implements AddRowEvent {
 		return this.player;
 	}
 
+	public void draw() {
+		this.stage.draw();
+	}
 }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
 public class Player extends Group {
 
-	private Candy candy;
+	Candy candy;
 
 	public void setCandy(Candy candy) {
 		this.candy = candy;
@@ -22,8 +22,9 @@ public class Player extends Group {
 	}
 
 	public void moveLeft() {
-		if (this.getActions().size > 0)
+		if ((this.getActions().size > 0) || (candy == null)) {
 			return;
+		}
 		if (this.getX() == Constants.STARTENEMIESX) {
 			return;
 		}
@@ -33,8 +34,9 @@ public class Player extends Group {
 
 
 	public void moveRight() {
-		if (this.getActions().size > 0)
+		if ((this.getActions().size > 0)|| (candy == null)) {
 			return;
+		}
 		if (this.getX() == (Constants.WIDTH - Constants.CANDYWIDHT)) {
 			return;
 		}
@@ -56,10 +58,10 @@ public class Player extends Group {
 	}
 
 	public Candy deleteCandy() {
-		Candy candy = this.candy;
+		Candy c = this.candy;
 		this.candy = null;
-		this.removeActor(candy);
-		return candy;
+		this.removeActor(c);
+		return c;
 	}
 
 }

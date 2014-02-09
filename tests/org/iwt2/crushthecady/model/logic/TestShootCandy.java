@@ -2,7 +2,10 @@ package org.iwt2.crushthecady.model.logic;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Mockito.*;
 import org.iwt2.crushthecady.model.Candy;
+import org.iwt2.crushthecady.model.CandyBullet;
+import org.iwt2.crushthecady.model.CandyBulletFactory;
 import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.CandyEnemies;
 import org.iwt2.crushthecady.model.Player;
@@ -12,9 +15,15 @@ import org.iwt2.crushthecady.view.Constants;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
+import unit.factory.Batchs;
 import unit.factory.Candies;
+import static unit.factory.Candies.*;
+import unit.factory.CandyBullets;
 import unit.factory.CandyEnemiesFactory;
 import unit.factory.PlayerFactory;
 import unit.factory.RoomFactory;
@@ -28,6 +37,7 @@ public class TestShootCandy {
 	private Player p;
 	private CandyEnemies ce;
 	private CandyColumn cc;
+	private CandyBullet cb;
 
 	@Before
 	public void setUp() throws Exception {
@@ -39,17 +49,12 @@ public class TestShootCandy {
 		this.ce = CandyEnemiesFactory.oneColumnWithOneCandy(this.enemyCandy);
 		this.cc = this.ce.columns().get(0);
 		this.room.setCandyEnemies(ce);
+		this.cb = CandyBullets.withYellowAndRed();
+		this.room.setCandyBullet(cb);
 	}
 
 	
-/* Obsolete
-	@Test
-	public void testStartMovementToTheEndOfColumn() {
-		sc.shootCandy();
-		
-		assertThat(candyFromPlayer.getActions().size, is(1));
-	}
-*/
+
 	@Test
 	public void testMovementGoesToTheFirstCandyInColumn() {
 		sc.shootCandy();
@@ -62,11 +67,12 @@ public class TestShootCandy {
 	@Test
 	public void testEnemyCandyGetsOutOPlayer_And_EntersColumn() {
 		assertThat(this.ce.candies(0), is(1));
+		Candy playerCandy = this.p.getCandy();
 		
 		sc.shootCandy();
 		
-		assertNull(this.p.getCandy());
 		assertThat(this.ce.candies(0), is(2));
+		assertThat(this.ce.firstCandyInColumn(0), is(playerCandy));
 	}
 	
 	@Test
@@ -83,16 +89,17 @@ public class TestShootCandy {
 		
 		this.ce.addCandy(0, c1);
 		this.ce.addCandy(0, c2);
-		//this.ce.addCandy(0, this.candyFromPlayer);
 		sc.setCandyPlayer(this.candyFromPlayer);
 		
 		sc.candyEvent(this.candyFromPlayer);
 		
-		assertTrue(c1.deleted);
-		assertTrue(c2.deleted);
-		assertTrue(this.candyFromPlayer.deleted);
-		
+		assertCandyIsDeleted(c1);
+		assertCandyIsDeleted(c2);
+		assertCandyIsDeleted(candyFromPlayer);
 	}
+
+
+
 
 	@Test
 	public void whenEventsCalled__andOneCandyHaveSameColor_deeteSameCandies() {
@@ -104,11 +111,12 @@ public class TestShootCandy {
 		
 		sc.candyEvent(this.candyFromPlayer);
 		
-		assertTrue(c1.deleted());
-		assertFalse(this.ce.columns().get(0).getCandy(0).deleted);
-		assertTrue(this.candyFromPlayer.deleted());
-		
+		assertCandyIsDeleted(c1);
+		assertCandyIsNotDeleted(this.ce.columns().get(0).getCandy(0));
+		assertCandyIsDeleted(candyFromPlayer);
 	}
+
+
 
 	@Test
 	public void whenEventsCalled__andCandiesHaveDiferentColor_NoCandiesAreDeleted() {
@@ -120,8 +128,8 @@ public class TestShootCandy {
 		
 		sc.candyEvent(this.candyFromPlayer);
 		
-		assertFalse(c1.deleted);
-		assertFalse(this.candyFromPlayer.deleted);
+		assertEquals(0, c1.getActions().size);
+		assertEquals(0, candyFromPlayer.getActions().size);
 		
 	}
 
@@ -139,37 +147,53 @@ public class TestShootCandy {
 		assertThat(this.ce.columns().get(0).candies(), is(candies + 1));
 	}
 */
-/*
-	@Test
-	public void testEnemyCandyExistInColumnAfterCollides() {
-		
-		sc.candyEvent(this.candyFromPlayer);
-		
-		assertNull(this.p.getCandy());
-	}
-*/
+
 	@Test
 	public void testCandyevent_OneRedCandyCollides() {
 		Candy c = Candies.red();
 		
 		this.room.getCandyEnemies().addShootedCandy(0, c);
 		this.sc.candyEvent(c);
-		c.act(10f);
 		this.cc.act(10f);
+		this.cc.draw(Batchs.dummy(), 1f);
 		
 		assertThat(this.ce.candies(0), is(0));
 	}
-/*
+	
+	
 	@Test
-	public void testCandyevent_OneRedCandyCollides() {
-		Candy c = Candies.red();
+	public void whenPlayerShoots_thenFirstCandyFromBulletGoesToPlayer() {
+		Candy first = cb.getFirstCandy();
 		
-		this.room.getCandyEnemies().addShootedCandy(0, c);
-		this.sc.candyEvent(c);
-		c.act(10f);
-		this.cc.act(10f);
+		this.sc.shootCandy();
 		
-		assertThat(this.ce.candies(0), is(0));
+		assertThat(first.getActions().size, is(1));
+		first.act(10f);
+		assertThat(first.getX(), is(this.p.getX()));
 	}
-*/
+
+	
+	@Test
+	public void whenPlayerShoots_thenFirstCandyFromBulletIsDiferent() {
+		Candy first = cb.getFirstCandy();
+		
+		this.sc.shootCandy();
+		
+		Candy second = cb.getFirstCandy();
+		first.act(10f);
+		assertTrue(first != second);
+	}
+
+	
+	@Test
+	public void whenPlayerShoots_thenFirstCandyFromBulletIsTheCandyforThePlayer() {
+		Candy first = cb.getFirstCandy();
+		
+		this.sc.shootCandy();
+		
+		first.act(10f);
+		assertThat(this.p.getCandy(), is(first));
+
+	}
+
 }

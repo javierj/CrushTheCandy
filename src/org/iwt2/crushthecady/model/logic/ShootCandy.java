@@ -1,6 +1,10 @@
 package org.iwt2.crushthecady.model.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.iwt2.crushthecady.model.Candy;
+import org.iwt2.crushthecady.model.CandyBullet;
 import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.Player;
 import org.iwt2.crushthecady.model.Room;
@@ -27,12 +31,22 @@ public class ShootCandy
 		
 		setCandyPlayer(this.player.deleteCandy());
 		
-		//setCandyPlayer(this.player.getCandy());
 		candyPlayer.setPosition(this.player.getX(), this.player.getY());
 		float y = getDestinyY(column);
 		this.room.getCandyEnemies().addShootedCandy(column, candyPlayer);
 		
 		candyPlayer.moveTo(this.player.getX(), y - Constants.CANDYHEIDHT, this);
+		
+		moveNextCandyToPlayer();
+	}
+
+	private void moveNextCandyToPlayer() {
+		CandyBullet cb = this.room.getCandyBullet();
+		Candy first = cb.removeFirstCandy();
+		
+		//first.moveTo(this.player.getX(), this.player.getY());
+		this.player.setCandy(first);
+		
 	}
 
 	/**
@@ -54,19 +68,27 @@ public class ShootCandy
 	 * @param candyFromPlayer
 	 */
 	public void candyEvent(Candy candyFromPlayer) {
-		//this.player.deleteCandy();
+		
+		//List<Candy> candyToDelete = new ArrayList<Candy>();
+		
 		CandyColumn cc = this.room.getCandyEnemies().columns().get(this.player.columnIndex());
 		boolean deleteCandyPlayer = false;
 		Candy enemy;
 		for (int i = /*cc.candies()-1*/1; i /*>=0*/< cc.candies() ; i/*--*/++) {
+		//for (int i = cc.candies()-1; i >=0; i--) {
 			enemy = cc.getCandy(i);
+	//		System.out.println("Candies: " + cc.candies() + " Enemi: " + enemy.getColorId() + " vs " + candyFromPlayer.getColorId());
 			if (enemy.sameColor(candyFromPlayer)) {
+				//System.out.println(enemy.getColorId() + " vs " + candyFromPlayer.getColorId());
 				enemy.delete(cc);
+				//candyToDelete.add(enemy);
 				deleteCandyPlayer = true;
 			} else {
 				break;
 			}
 		}
+		
+		//cc.setCandyToDelete(candyToDelete);
 		
 		if (deleteCandyPlayer) {
 			candyFromPlayer.delete(cc);

@@ -52,11 +52,15 @@ feature Candy shoot
 		then the candy goes up until it collides with the yellow candy
 		and the candy is stuccked with the yellow candy
 		
-	scenario refill the candy column
-		# El de abajo va al jgador y arriba s egenera uno nuevo
-		given a game
+	scenario reload the player
+		given a game with a candy and the bottom candy is red
 		when I shoot the candy
-		the  a new candy is added to the candy bullets
+		then the bottom candy is the new candy for the player
+
+	scenario refill the candy column
+		given a game with a candy and the first ball red
+		when I shoot the candy
+		then  a new candy is added to the candy bullets
 		and its color is a color that existist in the candies enemies.
 
 		

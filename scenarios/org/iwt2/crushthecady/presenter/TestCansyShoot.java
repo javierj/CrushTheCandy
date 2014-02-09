@@ -3,6 +3,7 @@ package org.iwt2.crushthecady.presenter;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.iwt2.crushthecady.model.Candy;
+import org.iwt2.crushthecady.model.CandyBullet;
 import org.iwt2.crushthecady.model.CandyColumn;
 import org.iwt2.crushthecady.model.CandyEnemies;
 import org.iwt2.crushthecady.model.Player;
@@ -11,6 +12,7 @@ import org.iwt2.crushthecady.model.logic.ShootCandy;
 import org.junit.Before;
 import org.junit.Test;
 
+import unit.factory.Batchs;
 import unit.factory.Candies;
 import unit.factory.CandyEnemiesFactory;
 import unit.factory.PlayerFactory;
@@ -41,21 +43,17 @@ public class TestCansyShoot {
 
 		Player p = PlayerFactory.create(x, Candies.yellow());
 		Room r = RoomFactory.create(ce, p);
-		PlayerMovement movement = new PlayerMovement(r);
-		movement.setShootCandy(new ShootCandy(r));
+		PlayerMovement movement = createMovement(r);
 		
-		movement.touchDown(x+1, 0, -1, -1);
-		p.act(10f);
+		shoot(movement, r);
 		
 		assertThat(cc.candies(), is(2));
 		assertThat(cc.getCandy(0).getColorId(), is("Yellow"));
 		assertThat(cc.getCandy(1).getColorId(), is("Red"));
 		
 		// no candies to delete
-		assertFalse(cc.getCandy(0).deleted());
-		assertFalse(cc.getCandy(1).deleted());
-		
-
+		Candies.assertCandyIsNotDeleted(cc.getCandy(0));
+		Candies.assertCandyIsNotDeleted(cc.getCandy(1));
 	}
 
 	/**
@@ -69,13 +67,54 @@ public class TestCansyShoot {
 	public void testShootACandyToAColumnWithSameColor() {
 		Player p = PlayerFactory.create(x, Candies.red());
 		Room r = RoomFactory.create(ce, p);
-		PlayerMovement movement = new PlayerMovement(r);
-		movement.setShootCandy(new ShootCandy(r));
+		PlayerMovement movement = createMovement(r);
 		
-		movement.touchDown(x+1, 0, -1, -1);
-		p.act(10f);
+		shoot(movement, r);
 		
 		assertThat(cc.candies(), is(0));
+	}
+	
+
+
+	/**
+	 * 	scenario reload the player
+		given a game with a candy and the bottom candy is red
+		when I shoot the candy
+		then the bottom candy is the new candy for the player
+		
+	*/
+	@Test
+	public void reloadPlayer() {
+		CandyBullet cb = new CandyBullet();
+		Candy neeBullet = Candies.red();
+		cb.addCandy(neeBullet);
+		cb.addCandy(Candies.yellow());
+		cb.addCandy(Candies.yellow());
+		
+	
+		Player p = PlayerFactory.create(x, Candies.yellow());
+		Room r = RoomFactory.create(ce, p);
+		r.setCandyBullet(cb);
+		PlayerMovement movement = createMovement(r);
+		
+		shoot(movement, r);
+		
+		assertThat(p.getCandy(), is(neeBullet));
+	}
+	
+	//-------------------------
+	
+	private void shoot(PlayerMovement movement, Room r) {
+		movement.touchDown(x+1, 0, -1, -1);
+		r.act(10f);
+		cc.draw(Batchs.dummy(), 0f);
+		
+	}
+
+	private PlayerMovement createMovement(Room r) {
+		PlayerMovement pm = new PlayerMovement(r);
+		pm.setShootCandy(new ShootCandy(r));
+		return pm;
 	}
 
 }

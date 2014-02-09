@@ -45,11 +45,11 @@ public class CandyEnemiesFactory {
 	private float calculateX(int i) {
 		return Constants.STARTENEMIESX + (Constants.CANDYWIDHT * i) ;
 	}
-
+/*
 	private float calculateY(int i) {
 		return Constants.HEIGHT - (Constants.CANDYHEIDHT * (i+1) );
 	}
-
+*/
 
 
 }
