@@ -41,21 +41,24 @@ public class StartGameDirector {
 	void loadTextures() {
 		TextureLoader loader = new TextureLoader();
 		this.dict = loader.getTextureDictionary();
+		this.cf = new CandyFactory(this.dict);
 	}
 	
 	void createCandyBullet(Room room) {
-		CandyBulletFactory factory = candyBulletFactory();
+		//CandyBulletFactory factory = candyBulletFactory();
 		int numOfCandies = Constants.HEIGHT / Constants.CANDYHEIDHT;
-		CandyBullet cb = factory.create(numOfCandies);
+		//CandyBullet cb = factory.create(numOfCandies);
+		CandyBullet cb = new CandyBullet(cf);
+		cb.createCandies(numOfCandies);
 		//cb.setXY(0f, 0f);
 		room.setCandyBullet(cb);
 	}
-
+/*
 	private CandyBulletFactory candyBulletFactory() {
 		this.cf = new CandyFactory(this.dict);
 		CandyBulletFactory factory = new CandyBulletFactory(cf);
 		//factory.setColors(Constants.COLORS);
 		return factory;
 	}
-
+*/
 }

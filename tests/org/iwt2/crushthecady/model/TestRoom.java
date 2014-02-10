@@ -1,4 +1,4 @@
-package unit;
+package org.iwt2.crushthecady.model;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -13,6 +13,8 @@ import org.junit.Test;
 import unit.factory.Candies;
 import unit.factory.CandyFactoryFactory;
 import unit.factory.RoomFactory;
+import unit.factory.mocks.MockStage;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
@@ -22,13 +24,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class TestRoom {
 
 	private Room room;
-	private Stage mockStage;
+	private MockStage mockStage;
 
 
 	@Before
 	public void setUp() throws Exception {
 		this.room = RoomFactory.createRoom();
-		this.mockStage = room.getStage();
+		this.mockStage = (MockStage)room.getStage();
 	}
 
 	@Test
@@ -66,5 +68,28 @@ public class TestRoom {
 		assertThat(mockStage.getActors().size, is(1));
 		
 	}
+	
+	boolean addOneRowCalled = false;
+	@Test
+	public void whenTimesExpeires_addNewRowofCandyEnemies() {
+		CandyEnemies ce = new CandyEnemies(1) {
+			@Override
+			public void addOneRow() {
+				addOneRowCalled = true;
+			}
+		};
+		this.room.setCandyEnemies(ce);
+		
+		
+		this.room.timeExpires();
+		
+		assertTrue(addOneRowCalled);
+	}
 
+	
+	@Test
+	public void whenDraw_thenDrawTheStage() {
+		this.room.draw();
+		assertTrue(this.mockStage.drawCalled);
+	}
 }

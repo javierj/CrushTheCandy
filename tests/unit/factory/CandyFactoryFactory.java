@@ -15,6 +15,12 @@ public class CandyFactoryFactory {
 		return cf;
 	}
 	
+	public CandyFactory create(String[] colors) {
+		CandyFactory cf = createCandyFactory();
+		cf.setColors(colors);
+		return cf;
+	}
+
 	
 	//----------------------------------
 	 class FakeTextureDict extends TextureDict {
@@ -25,5 +31,7 @@ public class CandyFactoryFactory {
 			return null;
 		}
 	}
+
+
 
 }

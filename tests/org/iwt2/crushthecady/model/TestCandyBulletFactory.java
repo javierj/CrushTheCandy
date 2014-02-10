@@ -1,4 +1,4 @@
-package unit;
+package org.iwt2.crushthecady.model;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;

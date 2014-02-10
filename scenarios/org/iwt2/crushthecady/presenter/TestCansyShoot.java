@@ -12,11 +12,12 @@ import org.iwt2.crushthecady.model.logic.ShootCandy;
 import org.junit.Before;
 import org.junit.Test;
 
-import unit.factory.Batchs;
 import unit.factory.Candies;
+import unit.factory.CandyBullets;
 import unit.factory.CandyEnemiesFactory;
 import unit.factory.PlayerFactory;
 import unit.factory.RoomFactory;
+import unit.factory.mocks.Batchs;
 
 public class TestCansyShoot {
 
@@ -85,7 +86,7 @@ public class TestCansyShoot {
 	*/
 	@Test
 	public void reloadPlayer() {
-		CandyBullet cb = new CandyBullet();
+		CandyBullet cb = CandyBullets.empty();
 		Candy neeBullet = Candies.red();
 		cb.addCandy(neeBullet);
 		cb.addCandy(Candies.yellow());

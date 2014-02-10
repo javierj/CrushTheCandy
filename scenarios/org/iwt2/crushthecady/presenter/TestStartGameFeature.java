@@ -17,8 +17,8 @@ import org.iwt2.crushthecady.view.Constants;
 import org.junit.Before;
 import org.junit.Test;
 
-import unit.factory.FakeTextureDict;
 import unit.factory.RoomFactory;
+import unit.factory.mocks.FakeTextureDict;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;

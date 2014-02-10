@@ -38,26 +38,27 @@ public class Room implements AddRowEvent {
 	}
 
 	public CandyEnemies getCandyEnemies() {
-		
 		return this.candyEnemies;
 	}
 
 	public void setCandyEnemies(CandyEnemies candyEnemies2) {
 		this.candyEnemies = candyEnemies2;
 		
-		for (/*EnemyColumn*/CandyColumn ec: this.candyEnemies.columns()) {
-			/*for (Candy c: ec.getCandies())
-				this.stage.addActor(c);*/
+		for (CandyColumn ec: this.candyEnemies.columns()) {
 			this.stage.addActor(ec);
 		}
 		
 	}
 
+	/**
+	 * Add row event
+	 */
 	@Override
 	public void timeExpires() {
 		this.candyEnemies.addOneRow();
 	}
 
+	
 	public void act(float deltaTime) {
 		this.stage.act(deltaTime);
 		

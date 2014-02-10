@@ -11,8 +11,8 @@ import org.junit.Test;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import unit.factory.Batchs;
 import unit.factory.Candies;
+import unit.factory.mocks.Batchs;
 
 public class TestCandyColumn {
 
@@ -42,8 +42,8 @@ public class TestCandyColumn {
 		cc.addCandy(c02);
 		this.cc.act(10f);
 		
-		assertThat(c01.getY(), is((float)( Constants.HEIGHT - (2 * Constants.CANDYHEIDHT) ) ) );
-		assertThat(c02.getY(), is((float)( Constants.HEIGHT - Constants.CANDYHEIDHT)) );
+		assertThat(c01.getY(), is((float)( Constants.HEIGHT - (1 * Constants.CANDYHEIDHT) ) ) );
+		assertThat(c02.getY(), is((float)( Constants.HEIGHT /*- Constants.CANDYHEIDHT*/)) );
 		assertThat(cc.candies(), is(2));
 	}
 

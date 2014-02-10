@@ -51,17 +51,23 @@ public class TestCandyEnemies {
 		for (CandyColumn ec: this.ce.columns()) {
 			assertThat(ec.candies(), is(1));
 		}
+		CandyColumn ce = this.ce.columns().get(0);
+		assertThat(ce.candies.get(0).getY(), is(500f));
+		
+		
 		
 		this.ce.addOneRow();
 		
 		for (CandyColumn ec: this.ce.columns()) {
 			assertThat(ec.candies(), is(2));
+			ec.act(10f);
 		}
 		
-		CandyColumn ce = this.ce.columns().get(0);
-		ce.act(10f);
-		assertThat(ce.candies.get(0).getY(), is(400f));
-		assertThat(ce.candies.get(1).getY(), is(450f));
+		
+		//
+		assertThat(ce.candies.get(0).getY(), is(450f));
+		assertThat(ce.candies.get(1).getY(), is(500f));
+
 	}
 	
 	@Test
@@ -69,7 +75,7 @@ public class TestCandyEnemies {
 		this.ce.addCandy(0, Candies.red());
 		
 		Candy top = ce.firstCandyInColumn(0);
-		assertThat(top.getY(), is((float) Constants.HEIGHT - Constants.CANDYHEIDHT) );
+		assertThat(top.getY(), is((float) Constants.HEIGHT /*- Constants.CANDYHEIDHT*/) );
 	}
 	
 	@Test

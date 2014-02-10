@@ -6,6 +6,8 @@ import org.iwt2.crushthecady.model.CandyEnemies;
 import org.iwt2.crushthecady.model.Player;
 import org.iwt2.crushthecady.model.Room;
 
+import unit.factory.mocks.MockStage;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -35,13 +37,5 @@ public class RoomFactory {
 
 	//----------------------------------------------
 	
-	static class MockStage extends Stage {
-		
-		public MockStage(int i, int j, boolean b, Batch dummyBatch) {
-			super(i, j, b, dummyBatch);
-		}
 
-		@Override
-		public void act(float delta) {}
-	}
 }

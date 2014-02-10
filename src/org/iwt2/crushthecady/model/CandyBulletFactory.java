@@ -20,7 +20,7 @@ public class CandyBulletFactory {
 	}
 */
 	public CandyBullet create(int numOfCandies) {
-		CandyBullet cb = new CandyBullet();
+		CandyBullet cb = new CandyBullet(null);
 		//Random random = new Random();
 		Candy c;
 		for (int i = 0; i < numOfCandies; i++ ) {

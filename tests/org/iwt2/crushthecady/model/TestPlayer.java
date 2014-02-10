@@ -92,5 +92,27 @@ public class TestPlayer {
 		
 		assertThat(this.player.getX(), is(x));
 	}
+	
+	@Test
+	public void whenCandyEventAppears_thenPlayerTakesTheCandy() {
+		Candy newCandy = Candies.yellow();
+		assertFalse(newCandy == this.player.getCandy());
+		
+		this.player.candyEvent(newCandy);
+		
+		assertThat(this.player.getCandy(), is(newCandy));
+	}
 
+	
+	@Test
+	public void whenCansyIsAdded_thenCandyôsIs_0_0() {
+		Candy newCandy = Candies.yellow();
+		newCandy.setPosition(10f, 10f);
+		
+		this.player.setCandy(newCandy);
+		
+		assertThat(newCandy.getX(), is(0f));
+		assertThat(newCandy.getY(), is(0f));
+	}
+	
 }

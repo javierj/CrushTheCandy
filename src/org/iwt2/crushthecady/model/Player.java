@@ -2,18 +2,20 @@ package org.iwt2.crushthecady.model;
 
 
 
+import org.iwt2.crushthecady.model.logic.CandyListener;
 import org.iwt2.crushthecady.view.Constants;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 
-public class Player extends Group {
+public class Player extends Group implements CandyListener {
 
 	Candy candy;
 
 	public void setCandy(Candy candy) {
 		this.candy = candy;
+		this.candy.setPosition(0f, 0f);
 		this.addActor(candy);
 	}
 
@@ -62,6 +64,16 @@ public class Player extends Group {
 		this.candy = null;
 		this.removeActor(c);
 		return c;
+	}
+
+	/**
+	 * event received when a candy arraives to the player pos.
+	 * Player adds the candy.
+	 */
+	@Override
+	public void candyEvent(Candy c) {
+		this.setCandy(c);
+		
 	}
 
 }

@@ -2,13 +2,22 @@ package org.iwt2.crushthecady.model;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.iwt2.crushthecady.model.Candy;
 import org.iwt2.crushthecady.model.CandyBullet;
+import org.iwt2.crushthecady.presenter.CandyFactory;
 import org.iwt2.crushthecady.view.Constants;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import unit.factory.Candies;
+import unit.factory.CandyBullets;
+import unit.factory.CandyFactoryFactory;
 
 public class TestCandyBullet {
 
@@ -18,7 +27,7 @@ public class TestCandyBullet {
 
 	@Before
 	public void setUp() throws Exception {
-		this.cb = new CandyBullet();
+		this.cb = CandyBullets.empty();
 		this.firstCandy = Candies.yellow();
 		this.c02 = Candies.red();
 		firstCandy.setPosition(-1f, -1f);
@@ -45,14 +54,14 @@ public class TestCandyBullet {
 		assertThat(c02.getY(), is((float)Constants.CANDYHEIDHT));
 		assertThat(c03.getY(), is((float)Constants.CANDYHEIDHT * 2));
 	}
-	
+
 	@Test
 	public void getFirstBullet() {
 		Candy c = cb.getFirstCandy();
 		
 		assertThat(c, is(this.firstCandy));
 	}
-
+/*
 	@Test
 	public void removeFirstBullet() {
 		int candies = cb.candies();
@@ -61,6 +70,8 @@ public class TestCandyBullet {
 		assertNotNull(c);
 		assertThat(cb.candies(), is(candies-1));
 	}
+	*/
+	
 	
 	@Test
 	public void moveDown() {
@@ -74,5 +85,48 @@ public class TestCandyBullet {
 			assertThat(c.getActions().size, is(1));
 		}
 	}
+
+	@Test
+	public void testAddNewCandy_movesCnddiesDown() {
+		int candies = this.cb.candies(); 
+		
+		this.cb.addNewCandy();
+		
+		assertThat(this.cb.candies(), is(candies + 1));
+		for (Candy c: getallCandies(this.cb)) {
+			assertThat(c.getActions().size, is(1));
+		}
+	}
+
+	
+	//-------------------------------------------------
+	
+	private List<Candy> getallCandies(CandyBullet cb2) {
+		List<Candy> candies = new ArrayList<Candy>();
+		for (Actor a: cb2.getChildren()) {
+			candies.add((Candy)a);
+		}
+		return candies;
+	}
+
+	
+	
+	//--------------------------------------------------
+	// Test creation
+	
+
+	private String[] colors = { "Red" };
+
+
+	@Test
+	public void testCreateACadyBullen_OneBall() {
+		CandyFactory cf = new CandyFactoryFactory().create(colors);
+		CandyBullet cb = new CandyBullet(cf); 
+		cb.createCandies(1);
+		
+		assertThat(cb.candies(), is(1));		
+	}
+
+	
 
 }

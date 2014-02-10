@@ -42,11 +42,12 @@ public class ShootCandy
 
 	private void moveNextCandyToPlayer() {
 		CandyBullet cb = this.room.getCandyBullet();
-		Candy first = cb.removeFirstCandy();
+		//Candy first = cb.removeFirstCandy();
+		Candy first = cb.getFirstCandy();
 		
-		//first.moveTo(this.player.getX(), this.player.getY());
-		this.player.setCandy(first);
-		
+		first.moveTo(this.player.getX(), this.player.getY(), this.player);
+		//this.player.setCandy(first);
+		//cb.createCandies(1);
 	}
 
 	/**
@@ -69,8 +70,6 @@ public class ShootCandy
 	 */
 	public void candyEvent(Candy candyFromPlayer) {
 		
-		//List<Candy> candyToDelete = new ArrayList<Candy>();
-		
 		CandyColumn cc = this.room.getCandyEnemies().columns().get(this.player.columnIndex());
 		boolean deleteCandyPlayer = false;
 		Candy enemy;
@@ -88,13 +87,9 @@ public class ShootCandy
 			}
 		}
 		
-		//cc.setCandyToDelete(candyToDelete);
-		
 		if (deleteCandyPlayer) {
 			candyFromPlayer.delete(cc);
-		} else {
-			//cc.addCandy(this.candyPlayer);
-		}
+		} 
 		
 	}
 
