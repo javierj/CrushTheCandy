@@ -33,7 +33,9 @@ public class ShootCandy
 		
 		candyPlayer.setPosition(this.player.getX(), this.player.getY());
 		float y = getDestinyY(column);
-		this.room.getCandyEnemies().addShootedCandy(column, candyPlayer);
+		
+		this.room.addToStage(candyPlayer);
+		//this.room.getCandyEnemies().addShootedCandy(column, candyPlayer);
 		
 		candyPlayer.moveTo(this.player.getX(), y - Constants.CANDYHEIDHT, this);
 		
@@ -42,12 +44,10 @@ public class ShootCandy
 
 	private void moveNextCandyToPlayer() {
 		CandyBullet cb = this.room.getCandyBullet();
-		//Candy first = cb.removeFirstCandy();
 		Candy first = cb.getFirstCandy();
 		
 		first.moveTo(this.player.getX(), this.player.getY(), this.player);
 		//this.player.setCandy(first);
-		//cb.createCandies(1);
 	}
 
 	/**
@@ -73,14 +73,13 @@ public class ShootCandy
 		CandyColumn cc = this.room.getCandyEnemies().columns().get(this.player.columnIndex());
 		boolean deleteCandyPlayer = false;
 		Candy enemy;
-		for (int i = /*cc.candies()-1*/1; i /*>=0*/< cc.candies() ; i/*--*/++) {
+		for (int i = /*cc.candies()-1*//*1*/0; i /*>=0*/< cc.candies() ; i/*--*/++) {
 		//for (int i = cc.candies()-1; i >=0; i--) {
 			enemy = cc.getCandy(i);
 	//		System.out.println("Candies: " + cc.candies() + " Enemi: " + enemy.getColorId() + " vs " + candyFromPlayer.getColorId());
 			if (enemy.sameColor(candyFromPlayer)) {
 				//System.out.println(enemy.getColorId() + " vs " + candyFromPlayer.getColorId());
 				enemy.delete(cc);
-				//candyToDelete.add(enemy);
 				deleteCandyPlayer = true;
 			} else {
 				break;
@@ -89,7 +88,10 @@ public class ShootCandy
 		
 		if (deleteCandyPlayer) {
 			candyFromPlayer.delete(cc);
-		} 
+		} else {
+			this.room.getCandyEnemies().addShootedCandy(this.player.columnIndex(), candyPlayer);
+			this.room.deleteFromStage(candyPlayer);
+		}
 		
 	}
 

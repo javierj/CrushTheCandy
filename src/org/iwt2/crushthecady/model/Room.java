@@ -76,4 +76,14 @@ public class Room implements AddRowEvent {
 	public void draw() {
 		this.stage.draw();
 	}
+
+	public void addToStage(Candy candy) {
+		this.stage.addActor(candy);
+		
+	}
+
+	public void deleteFromStage(Candy candy) {
+		this.stage.getActors().removeValue(candy, true);
+		
+	}
 }

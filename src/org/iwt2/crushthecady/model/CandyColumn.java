@@ -42,7 +42,6 @@ public class CandyColumn extends Actor implements CandyListener {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		//for (Candy c: this.candies) {
 		Candy c;
 		float alpha;
 		//for (int i= this.candies.size-1; i >= 0; i-- ) {
@@ -60,8 +59,6 @@ public class CandyColumn extends Actor implements CandyListener {
 	
 	@Override
 	public void act(float deltaTime) {
-
-		
 		for (Candy c: this.candies) {
 			c.act(deltaTime);
 		}
@@ -89,16 +86,25 @@ public class CandyColumn extends Actor implements CandyListener {
 	}
 
 	/**
+	 * Deprecated.
 	 * Called when a candy must be deleted
 	 */
 	@Override
 	public void candyEvent(Candy c) {
 		//boolean b = this.candies.removeValue(c, true);
 		boolean b = this.candies.remove(c);
-		if (!b){
+		/*if (!b){
 			System.err.println("CandyColumn - No Candy to delete.");
-		}
+		}*/
 		System.err.println("CandyColumn::candyEvent - Dont call this method.");
+	}
+
+	public void addInitialCandy(Candy candy) {
+		this.addCandy(candy);
+		for (Candy c: this.candies) {
+			c.act(10f);
+		}
+		
 	}
 
 	/* - Deprecated

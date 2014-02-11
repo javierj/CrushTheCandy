@@ -1,9 +1,14 @@
 package org.iwt2.crushthecady.model;
 
-import java.util.Random;
 
 import org.iwt2.crushthecady.presenter.CandyFactory;
 
+/**
+ * Deprecated. Now CandyBullet can initialice by its own using the factory
+ * for creating candies.
+ * @author Javier
+ *
+ */
 public class CandyBulletFactory {
 
 	private String[] colors;

@@ -28,19 +28,24 @@ public class Candy extends Image {
 	}
 
 	
-	
+	/**
+	 * Duarion is constands and therefrore, the speed depends on
+	 * thye distance.
+	 * Speed should be standard ans it should be a constant in
+	 * Constants class.
+	 * @param x
+	 * @param y
+	 */
 	public void moveTo(float x, float y) {
 		MoveToAction move = new MoveToAction();
 		move.setPosition(x, y);
-		move.setDuration(0.6f);
+		move.setDuration(0.4f);
 		this.addAction(move);
 	}
 
 	
 	public void moveTo(float x, float y, CandyListener listener) {
 		this.moveTo(x, y);
-		
-		
 		this.addAction(createNotifyAction(listener));
 	}
 

@@ -48,19 +48,28 @@ public class CandyEnemies {
 		CandyColumn ec;
 		for (int column = 0; column < this.numOfColumns; column++) {
 			ec = this.columns.get(column);
-			//ec.allCandiesDown();
 			//ec.setPosition(calculateX(column), 0f);
 			Candy c = this.factory.createwithRandomColorId();
-			//Candy c = Candies.red();
 				//c.setY(/*calculateY(ec.candies())*/500);
 				//c.setX(calculateX(column));
 				
-				ec.addCandy(c);
-			
+			ec.addCandy(c);
 		}
-	
 	}
-	
+
+	public void addInitialRow(/*CandyFactory factory*/) {
+		CandyColumn ec;
+		for (int column = 0; column < this.numOfColumns; column++) {
+			ec = this.columns.get(column);
+			//ec.setPosition(calculateX(column), 0f);
+			Candy c = this.factory.createwithRandomColorId();
+				//c.setY(/*calculateY(ec.candies())*/500);
+				//c.setX(calculateX(column));
+				
+			ec.addInitialCandy(c);
+		}
+	}
+
 	public void setCandyFactory(CandyFactory factory) {
 		this.factory = factory;
 	}
@@ -77,8 +86,5 @@ public class CandyEnemies {
 		this.columns.get(i).addShootedCandy(shooted);
 		
 	}
-
-
-
 
 }
